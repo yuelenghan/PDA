@@ -9,8 +9,9 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" >
-            <intent-filter>
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+        <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -18,64 +19,64 @@
         </activity>
         <activity
             android:name=".HazardMainActivity"
-            android:label="@string/title_activity_hazard_main" >
-        </activity>
+            android:label="@string/title_activity_hazard_main"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".HazardCheckActivity"
-            android:label="@string/title_activity_hazard_check" >
-        </activity>
+            android:label="@string/title_activity_hazard_check"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".HazardInfoCheckActivity"
-            android:label="@string/title_activity_hazard_info_check" >
-        </activity>
+            android:label="@string/title_activity_hazard_info_check"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".HazardControlActivity"
-            android:label="@string/title_activity_hazard_control" >
-        </activity>
+            android:label="@string/title_activity_hazard_control"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".SwMainActivity"
-            android:label="@string/title_activity_sw_main" >
-        </activity>
+            android:label="@string/title_activity_sw_main"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".SwDetailInfoActivity"
-            android:label="@string/title_activity_sw_detail_info" >
-        </activity>
+            android:label="@string/title_activity_sw_detail_info"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".SwInputInfoActivity"
-            android:label="@string/title_activity_sw_input_info" >
-        </activity>
+            android:label="@string/title_activity_sw_input_info"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".YhMainActivity"
-            android:label="@string/title_activity_yh_main" >
-        </activity>
+            android:label="@string/title_activity_yh_main"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".YhCategoryActivity"
-            android:label="@string/title_activity_yh_category" >
-        </activity>
+            android:label="@string/title_activity_yh_category"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".YhInputInfoActivity"
-            android:label="@string/title_activity_yh_input_info" >
-        </activity>
+            android:label="@string/title_activity_yh_input_info"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".YhCheckActivity"
-            android:label="@string/title_activity_yh_check" >
-        </activity>
+            android:label="@string/title_activity_yh_check"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".QualityCheckActivity"
-            android:label="@string/title_activity_quality_check" >
-        </activity>
+            android:label="@string/title_activity_quality_check"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".QualityMainActivity"
-            android:label="@string/title_activity_quality_main" >
-        </activity>
+            android:label="@string/title_activity_quality_main"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".QualityScoreActivity"
-            android:label="@string/title_activity_quality_score" >
-        </activity>
+            android:label="@string/title_activity_quality_score"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".QualityActionActivity"
-            android:label="@string/title_activity_quality_action" >
-        </activity>
+            android:label="@string/title_activity_quality_action"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
