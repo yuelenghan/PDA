@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">PDA</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="system_name">系统名称</string>
+    <string name="hazard_check">危险源监测</string>
+    <string name="sw_check">三违整治</string>
+    <string name="yh_check">隐患排查</string>
+    <string name="quality_check">质量标准化检查</string>
+    <string name="title_activity_hazard_main">HazardMainActivity</string>
+    <string name="title_activity_hazard_check">HazardCheckActivity</string>
+    <string name="title_activity_hazard_info_check">HazardInfoCheckActivity</string>
+    <string name="title_activity_hazard_control">HazardControlActivity</string>
+    <string name="title_activity_sw_main">SwMainActivity</string>
+    <string name="title_activity_sw_detail_info">SwDetailInfoActivity</string>
+    <string name="title_activity_sw_input_info">SwInputInfoActivity</string>
+    <string name="title_activity_yh_main">YhMainActivity</string>
+    <string name="title_activity_yh_category">YhCategoryActivity</string>
+    <string name="title_activity_yh_input_info">YhInputInfoActivity</string>
+    <string name="title_activity_yh_check">YhCheckActivity</string>
+    <string name="title_activity_quality_check">QualityCheckActivity</string>
+    <string name="title_activity_quality_main">QualityMainActivity</string>
+    <string name="title_activity_quality_score">QualityScoreActivity</string>
+    <string name="title_activity_quality_action">QualityActionActivity</string>
+
+</resources>
