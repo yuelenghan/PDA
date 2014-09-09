@@ -3,6 +3,7 @@ package com.ghtn.lihe.pda;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -48,7 +49,7 @@ public class SwMainActivity extends Activity implements View.OnClickListener {
         Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.take_photo_button:
-                intent.setClass(this, SwDetailInfoActivity.class);
+                intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivity(intent);
                 break;
             case R.id.input_info_button:
