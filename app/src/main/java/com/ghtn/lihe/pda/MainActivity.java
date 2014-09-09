@@ -62,7 +62,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.hazard_check_button:
-                intent.setClass(this, HazardMainActivity.class);
+                intent.setClass(this, HazardPlaceActivity.class);
                 startActivity(intent);
                 break;
             case R.id.sw_check_button:
@@ -70,11 +70,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.yh_check_button:
-                intent.setClass(this, YhMainActivity.class);
+                intent.setClass(this, YhPlaceActivity.class);
                 startActivity(intent);
                 break;
             case R.id.quality_check_button:
-                intent.setClass(this, QualityMainActivity.class);
+                intent.setClass(this, QualityPlaceActivity.class);
                 startActivity(intent);
                 break;
             default:

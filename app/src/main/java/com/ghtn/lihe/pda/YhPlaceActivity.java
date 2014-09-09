@@ -7,24 +7,28 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 
-public class YhCategoryActivity extends Activity implements View.OnClickListener {
+public class YhPlaceActivity extends Activity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_yh_category);
+        setContentView(R.layout.activity_yh_place);
 
-        Button yhCategoryButton = (Button) findViewById(R.id.yh_category_button);
-        yhCategoryButton.setOnClickListener(this);
+        Button nfcButton = (Button) findViewById(R.id.nfc_button);
+        Button placeSelectButton = (Button) findViewById(R.id.place_select_button);
+
+        nfcButton.setOnClickListener(this);
+        placeSelectButton.setOnClickListener(this);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.yh_category, menu);
+        getMenuInflater().inflate(R.menu.yh_place, menu);
         return true;
     }
 
@@ -42,8 +46,17 @@ public class YhCategoryActivity extends Activity implements View.OnClickListener
 
     @Override
     public void onClick(View view) {
-        Intent intent = new Intent();
-        intent.setClass(this, YhMainActivity.class);
-        startActivity(intent);
+        switch (view.getId()) {
+            case R.id.nfc_button:
+                Toast.makeText(this, "nfc读取地点信息", Toast.LENGTH_LONG).show();
+                break;
+            case R.id.place_select_button:
+                Intent intent = new Intent();
+                intent.setClass(this, YhCategoryActivity.class);
+                startActivity(intent);
+                break;
+            default:
+                break;
+        }
     }
 }

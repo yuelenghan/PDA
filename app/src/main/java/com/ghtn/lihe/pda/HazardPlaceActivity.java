@@ -7,27 +7,28 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 
-public class QualityActionActivity extends Activity implements View.OnClickListener {
+public class HazardPlaceActivity extends Activity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_quality_action);
+        setContentView(R.layout.activity_hazard_place);
 
-        Button qualityScoreButton = (Button) findViewById(R.id.quality_score_button);
-        Button qualityCheckButton = (Button) findViewById(R.id.quality_check_button);
+        Button nfcButton = (Button) findViewById(R.id.nfc_button);
+        Button placeSelectButton = (Button) findViewById(R.id.place_select_button);
 
-        qualityScoreButton.setOnClickListener(this);
-        qualityCheckButton.setOnClickListener(this);
+        nfcButton.setOnClickListener(this);
+        placeSelectButton.setOnClickListener(this);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.quality_action, menu);
+        getMenuInflater().inflate(R.menu.hazard_place, menu);
         return true;
     }
 
@@ -45,14 +46,13 @@ public class QualityActionActivity extends Activity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        Intent intent = new Intent();
         switch (view.getId()) {
-            case R.id.quality_score_button:
-                intent.setClass(this, QualityScoreActivity.class);
-                startActivity(intent);
+            case R.id.nfc_button:
+                Toast.makeText(this, "读取nfc信息", Toast.LENGTH_LONG).show();
                 break;
-            case R.id.quality_check_button:
-                intent.setClass(this, QualityCheckActivity.class);
+            case R.id.place_select_button:
+                Intent intent = new Intent();
+                intent.setClass(this, HazardMainActivity.class);
                 startActivity(intent);
                 break;
             default:
