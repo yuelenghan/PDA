@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ghtn.lihe.pda">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -19,7 +22,7 @@
         </activity>
         <activity
             android:name=".HazardPlaceActivity"
-            android:label="@string/title_activity_hazard_place"></activity>
+            android:label="@string/title_activity_hazard_place" />
         <activity
             android:name=".SwMainActivity"
             android:label="@string/title_activity_sw_main"
@@ -38,22 +41,22 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".HazardMainActivity"
-            android:label="@string/title_activity_hazard_main"></activity>
+            android:label="@string/title_activity_hazard_main" />
         <activity
             android:name=".YhPlaceActivity"
-            android:label="@string/title_activity_yh_place"></activity>
+            android:label="@string/title_activity_yh_place" />
         <activity
             android:name=".YhMainActivity"
-            android:label="@string/title_activity_yh_main"></activity>
+            android:label="@string/title_activity_yh_main" />
         <activity
             android:name=".QualityPlaceActivity"
-            android:label="@string/title_activity_quality_place"></activity>
+            android:label="@string/title_activity_quality_place" />
         <activity
             android:name=".QualityCategoryActivity"
-            android:label="@string/title_activity_quality_category"></activity>
+            android:label="@string/title_activity_quality_category" />
         <activity
             android:name=".QualityMainActivity"
-            android:label="@string/title_activity_quality_main"></activity>
+            android:label="@string/title_activity_quality_main" />
     </application>
 
 </manifest>

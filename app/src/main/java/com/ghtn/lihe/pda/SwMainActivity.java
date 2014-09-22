@@ -2,12 +2,17 @@ package com.ghtn.lihe.pda;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+
+import java.io.File;
 
 
 public class SwMainActivity extends Activity implements View.OnClickListener {
@@ -46,17 +51,39 @@ public class SwMainActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        Intent intent = new Intent();
-        switch (view.getId()) {
-            case R.id.take_photo_button:
-                intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivity(intent);
-                break;
-            case R.id.input_info_button:
-                intent.setClass(this, SwInputInfoActivity.class);
-                startActivity(intent);
-            default:
-                break;
+//        Intent intent = new Intent();
+//        switch (view.getId()) {
+//            case R.id.take_photo_button:
+//                intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
+//                startActivity(intent);
+//                break;
+//            case R.id.input_info_button:
+//                intent.setClass(this, SwInputInfoActivity.class);
+//                startActivity(intent);
+//            default:
+//                break;
+//        }
+
+        Log.i("tttt", Environment.getExternalStorageDirectory().getPath());
+
+        // 检测sd是否可用
+        String sdStatus = Environment.getExternalStorageState();
+        if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) {
+            Log.i("TestFile", "SD card is not avaiable/writeable right now.");
+            return;
         }
+
+
+// 设置照片名称
+        String ImageName = Environment.getExternalStorageDirectory().getPath() + "/testImage/test2222222222222222.jpg";
+
+        File file = new File(ImageName);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+//系统摄像头调用
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+        startActivityForResult(intent, 1);
     }
 }
