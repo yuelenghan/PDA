@@ -22,6 +22,7 @@ public class MySqliteOpenHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("create table department (deptNumber, deptName)");
         sqLiteDatabase.execSQL("create table placeArea (id, name, mainDeptId)");
+        sqLiteDatabase.execSQL("create table place (id, name, areaId, mainDeptId)");
     }
 
     @Override
