@@ -3,9 +3,12 @@ package com.ghtn.lihe.pda;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -19,6 +22,8 @@ import java.util.List;
 public class MainActivity extends Activity implements View.OnClickListener {
 
     private static final String TAG = "MainActivity";
+
+    public static String mainDeptId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +44,31 @@ public class MainActivity extends Activity implements View.OnClickListener {
         DepartmentDao departmentDao = new DepartmentDao(this);
         List<Department> deptList = departmentDao.getAll();
         if (deptList != null && deptList.size() > 0) {
-            String[] spinnerData = new String[deptList.size()];
+            final String[] deptNumber = new String[deptList.size()];
+            String[] deptName = new String[deptList.size()];
+
             for (int i = 0; i < deptList.size(); i++) {
-                spinnerData[i] = deptList.get(i).getDeptName();
+                deptNumber[i] = deptList.get(i).getDeptNumber();
+                deptName[i] = deptList.get(i).getDeptName();
             }
+
             Spinner spinner = (Spinner) findViewById(R.id.spinner);
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_spinner_item, spinnerData);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_spinner_item, deptName);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinner.setAdapter(adapter);
 
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    mainDeptId = deptNumber[position];
+                    Log.i(TAG, "mainDeptId = " + mainDeptId);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
         }
 
     }
@@ -102,4 +123,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
     }
 
+    // 屏蔽返回键, 阻止返回到数据库初始化界面
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

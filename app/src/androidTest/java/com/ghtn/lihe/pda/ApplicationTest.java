@@ -7,7 +7,11 @@ import android.net.NetworkInfo;
 import android.test.ApplicationTestCase;
 
 import com.ghtn.lihe.pda.dao.DepartmentDao;
+import com.ghtn.lihe.pda.dao.PlaceAreaDao;
+import com.ghtn.lihe.pda.dao.PlaceDao;
 import com.ghtn.lihe.pda.model.Department;
+import com.ghtn.lihe.pda.model.Place;
+import com.ghtn.lihe.pda.model.PlaceArea;
 
 import java.util.List;
 
@@ -40,7 +44,6 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
     }
 
     public void testGetConnectionStatus() {
-
         ConnectivityManager mConnectivityManager = (ConnectivityManager) getContext()
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
@@ -48,6 +51,18 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         System.out.println(mNetworkInfo.getTypeName());
         System.out.println(mNetworkInfo.getType());
         System.out.println(ConnectivityManager.TYPE_WIFI);
+    }
+
+    public void testGetPlaceArea() {
+        PlaceAreaDao placeAreaDao = new PlaceAreaDao(getContext());
+        List<PlaceArea> list = placeAreaDao.get("010102");
+        System.out.println(list.size());
+    }
+
+    public void testGetPlace() {
+        PlaceDao placeDao = new PlaceDao(getContext());
+        List<Place> list = placeDao.get(12);
+        System.out.println(list.size());
     }
 
 }

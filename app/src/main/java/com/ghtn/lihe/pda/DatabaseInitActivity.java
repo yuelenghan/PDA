@@ -35,7 +35,11 @@ public class DatabaseInitActivity extends Activity {
     private ProgressBar progressBar;
     private TextView textView;
 
+    private AsyncHttpClient client;
+
     private SharedPreferences sharedPreferences;
+
+    private boolean dialogShow = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +91,7 @@ public class DatabaseInitActivity extends Activity {
         final PlaceAreaDao placeAreaDao = new PlaceAreaDao(context);
         final PlaceDao placeDao = new PlaceDao(context);
 
-        AsyncHttpClient client = new AsyncHttpClient();
+        client = new AsyncHttpClient();
         client.setTimeout(ConstantUtil.TIME_OUT);   // 20秒超时
 
         sharedPreferences = this.getSharedPreferences("share", MODE_PRIVATE);
@@ -142,7 +146,10 @@ public class DatabaseInitActivity extends Activity {
                         Log.e(TAG, "获取部门数据失败!");
                         Log.e(TAG, "statusCode = " + statusCode);
 
-                        showErrorDialog();
+                        if (!dialogShow) {
+                            showErrorDialog();
+                        }
+
                     }
 
                 }
@@ -152,7 +159,10 @@ public class DatabaseInitActivity extends Activity {
                     Log.e(TAG, "获取部门数据失败!");
                     Log.e(TAG, e.toString());
 
-                    showErrorDialog();
+
+                    if (!dialogShow) {
+                        showErrorDialog();
+                    }
                 }
             });
         } else {
@@ -207,7 +217,9 @@ public class DatabaseInitActivity extends Activity {
                         Log.e(TAG, "获取区域数据失败!");
                         Log.e(TAG, "statusCode = " + statusCode);
 
-                        showErrorDialog();
+                        if (!dialogShow) {
+                            showErrorDialog();
+                        }
                     }
 
                 }
@@ -217,7 +229,9 @@ public class DatabaseInitActivity extends Activity {
                     Log.e(TAG, "获取区域数据失败!");
                     Log.e(TAG, e.toString());
 
-                    showErrorDialog();
+                    if (!dialogShow) {
+                        showErrorDialog();
+                    }
                 }
             });
         } else {
@@ -259,8 +273,6 @@ public class DatabaseInitActivity extends Activity {
                                 int areaId = jsonObject.getInt("areaId");
                                 String mainDeptId = jsonObject.getString("mainDeptId");
 
-//                                Log.i(TAG, "deptNumber = " + deptNumber + ", deptName = " + deptName);
-
                                 placeDao.add(id, name, areaId, mainDeptId);
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -282,7 +294,9 @@ public class DatabaseInitActivity extends Activity {
                         Log.e(TAG, "获取地点数据失败!");
                         Log.e(TAG, "statusCode = " + statusCode);
 
-                        showErrorDialog();
+                        if (!dialogShow) {
+                            showErrorDialog();
+                        }
                     }
 
                 }
@@ -292,7 +306,9 @@ public class DatabaseInitActivity extends Activity {
                     Log.e(TAG, "获取地点数据失败!");
                     Log.e(TAG, e.toString());
 
-                    showErrorDialog();
+                    if (!dialogShow) {
+                        showErrorDialog();
+                    }
                 }
             });
         } else {
@@ -318,11 +334,14 @@ public class DatabaseInitActivity extends Activity {
     }
 
     private void showErrorDialog() {
+        dialogShow = true;
         new AlertDialog.Builder(this).setTitle("错误").setMessage("初始化数据库发生错误!")
                 .setPositiveButton("重新初始化", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        client.cancelRequests(DatabaseInitActivity.this, true);
                         initDatabase(DatabaseInitActivity.this);
+                        dialogShow = false;
                     }
                 }).show();
     }

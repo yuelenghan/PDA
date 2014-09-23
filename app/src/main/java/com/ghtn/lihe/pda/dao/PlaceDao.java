@@ -66,4 +66,28 @@ public class PlaceDao {
         return list;
     }
 
+    public List<Place> get(int areaId) {
+        SQLiteDatabase db = helper.getReadableDatabase();
+        Cursor cursor = db.query("place", null, "areaId = " + areaId, null, null, null, null);
+        List<Place> list = new ArrayList<Place>();
+        while (cursor.moveToNext()) {
+            int id = cursor.getInt(cursor.getColumnIndex("id"));
+            String name = cursor.getString(cursor.getColumnIndex("name"));
+            String mainDeptId = cursor.getString(cursor.getColumnIndex("mainDeptId"));
+
+            Place place = new Place();
+            place.setId(id);
+            place.setName(name);
+            place.setAreaId(areaId);
+            place.setMainDeptId(mainDeptId);
+
+            list.add(place);
+        }
+
+        cursor.close();
+        db.close();
+
+        return list;
+    }
+
 }

@@ -1,16 +1,29 @@
 package com.ghtn.lihe.pda;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.ghtn.lihe.pda.dao.PlaceAreaDao;
+import com.ghtn.lihe.pda.dao.PlaceDao;
+import com.ghtn.lihe.pda.model.Place;
+import com.ghtn.lihe.pda.model.PlaceArea;
+
+import java.util.List;
 
 
 public class HazardPlaceActivity extends Activity implements View.OnClickListener {
+
+    public static int placeId;
+    private static int areaId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,10 +31,67 @@ public class HazardPlaceActivity extends Activity implements View.OnClickListene
         setContentView(R.layout.activity_hazard_place);
 
         Button nfcButton = (Button) findViewById(R.id.nfc_button);
-        Button placeSelectButton = (Button) findViewById(R.id.place_select_button);
-
         nfcButton.setOnClickListener(this);
-        placeSelectButton.setOnClickListener(this);
+
+        // 初始化spinner
+        PlaceAreaDao placeAreaDao = new PlaceAreaDao(this);
+        List<PlaceArea> areaList = placeAreaDao.get(MainActivity.mainDeptId);
+        if (areaList != null && areaList.size() > 0) {
+            final Integer[] areaIds = new Integer[areaList.size()];
+            String[] areaNames = new String[areaList.size()];
+
+            for (int i = 0; i < areaList.size(); i++) {
+                areaIds[i] = areaList.get(i).getId();
+                areaNames[i] = areaList.get(i).getName();
+            }
+
+            Spinner areaSpinner = (Spinner) findViewById(R.id.area_spinner);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(HazardPlaceActivity.this, android.R.layout.simple_spinner_item, areaNames);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            areaSpinner.setAdapter(adapter);
+
+            final PlaceDao placeDao = new PlaceDao(this);
+            areaSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    areaId = areaIds[position];
+                    List<Place> placeList = placeDao.get(areaId);
+                    if (placeList != null && placeList.size() > 0) {
+                        final Integer[] placeIds = new Integer[placeList.size()];
+                        final String[] placeNames = new String[placeList.size()];
+
+                        for (int j = 0; j < placeList.size(); j++) {
+                            placeIds[j] = placeList.get(j).getId();
+                            placeNames[j] = placeList.get(j).getName();
+                        }
+
+                        Spinner placeSpinner = (Spinner) findViewById(R.id.place_spinner);
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(HazardPlaceActivity.this, android.R.layout.simple_spinner_item, placeNames);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        placeSpinner.setAdapter(adapter);
+
+                        placeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                placeId = placeIds[position];
+                                TextView placeInfo = (TextView) findViewById(R.id.place_info);
+                                placeInfo.setText(placeNames[position]);
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+        }
     }
 
 
@@ -50,11 +120,7 @@ public class HazardPlaceActivity extends Activity implements View.OnClickListene
             case R.id.nfc_button:
                 Toast.makeText(this, "读取nfc信息", Toast.LENGTH_LONG).show();
                 break;
-            case R.id.place_select_button:
-                Intent intent = new Intent();
-                intent.setClass(this, HazardMainActivity.class);
-                startActivity(intent);
-                break;
+
             default:
                 break;
         }

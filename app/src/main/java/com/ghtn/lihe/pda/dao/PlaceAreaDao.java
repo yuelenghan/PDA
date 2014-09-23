@@ -62,4 +62,26 @@ public class PlaceAreaDao {
         return list;
     }
 
+    public List<PlaceArea> get(String mainDeptId) {
+        SQLiteDatabase db = helper.getReadableDatabase();
+        Cursor cursor = db.query("placeArea", null, "mainDeptId = ?", new String[]{mainDeptId}, null, null, null);
+        List<PlaceArea> list = new ArrayList<PlaceArea>();
+        while (cursor.moveToNext()) {
+            int id = cursor.getInt(cursor.getColumnIndex("id"));
+            String name = cursor.getString(cursor.getColumnIndex("name"));
+
+            PlaceArea placeArea = new PlaceArea();
+            placeArea.setId(id);
+            placeArea.setName(name);
+            placeArea.setMainDeptId(mainDeptId);
+
+            list.add(placeArea);
+        }
+
+        cursor.close();
+        db.close();
+
+        return list;
+    }
+
 }
